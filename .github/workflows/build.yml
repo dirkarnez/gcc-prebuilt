@@ -51,11 +51,12 @@ jobs:
       - name: set PATH, check mingw version, cmake generate, build and install
         shell: msys2 {0}
         run: |
-            workspace=$(pwd) &&
-            export PATH="$workspace/mingw64:$workspace/mingw64/bin:$workspace/msys64/usr/bin:/usr/bin" &&
-            cd gcc && 
-            g++ --version && 
-            ./configure --enable-languages=c,c++ --prefix="$(pwd)/${{ env.installationPath }}" &&
-            make install && 
-            ls
+          workspace=$(pwd) &&
+          export PATH="$workspace/mingw64:$workspace/mingw64/bin:$workspace/msys64/usr/bin:/usr/bin" &&
+          g++ --version && 
+          mkdir objdir &&
+          cd objdir &&
+          ../gcc/configure --enable-languages=c,c++ --prefix="$(pwd)/${{ env.installationPath }}" &&
+          make install && 
+          ls
             
